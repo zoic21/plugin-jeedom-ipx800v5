@@ -290,8 +290,15 @@ class ipx800v5 extends eqLogic {
 	* Descr: polling on Ipx
 	*/
 	public static function pull($_eqLogic_id = null, $_cache = null) {
+		if($_cache != null){
+			self::$_eqLogics = $_cache;
+		}
 		if (self::$_eqLogics == null) {
-			self::$_eqLogics = self::byType('ipx800v5',true);
+			if($_eqLogic_id == null){
+				self::$_eqLogics = self::byType('ipx800v5',true);
+			}else{
+				self::$_eqLogics = array(self::byId($_eqLogic_id));
+			}
 		}
 		$cache = array();
 		foreach (self::$_eqLogics as &$ipx800v5) { //pour chaque Equipement IPX800 V5
