@@ -295,15 +295,14 @@ class ipx800v5 extends eqLogic {
 		}
 		$cache = array();
 		foreach (self::$_eqLogics as &$ipx800v5) { //pour chaque Equipement IPX800 V5
-			$_eqLogic_id = $ipx800v5->getId();
-
-			$cmds = cmd::byEqLogicId($_eqLogic_id); //get all cmd de l'equipement
+			if(!is_object($ipx800v5)){
+				continue;
+			}
+		        $cmds = $ipx800v5->getCmd(); //get all cmd de l'equipement
 			$refreshIo  = array();
 			$refreshAna = array();
-
 			$io = 0;
 			$ana = 0;
-
 			for ($i=0; $i < sizeof($cmds); $i++) { //pour chaque cmd de l'equipement
 				$cmd = $cmds[$i];
 				$arg = $cmd->getConfiguration('actionArgument');
